@@ -1,3 +1,5 @@
+package org.coderistan.compiler;
+
 import java.util.Queue;
 
 // Bu sınıf, tokenleri içeren lexer sonuçlarını Queue nesnesi olarak alır

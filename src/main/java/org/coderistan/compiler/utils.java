@@ -1,3 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.coderistan.compiler;
+
 enum ND_TYPE {
     degisken,
     integer,
@@ -10,7 +17,7 @@ enum ND_TYPE {
     ifade
 }
 
-enum TOKEN{
+enum TOKEN {
     esittir,
     degisken,
     op_toplama,
@@ -25,28 +32,30 @@ enum TOKEN{
     son
 }
 
-class Node{
+class Node {
+
     ND_TYPE nd_type;
-    Node left,right;
+    Node left, right;
     String value;
-    
-    public Node(ND_TYPE nd_type,Node left,Node right,String value){
+
+    public Node(ND_TYPE nd_type, Node left, Node right, String value) {
         this.nd_type = nd_type;
         this.left = left;
         this.right = right;
         this.value = value;
     }
-    
+
 }
 
-class Token{
-    public int satir,sutun;
+class Token {
+
+    public int satir, sutun;
     public TOKEN type;
     public String value;
     public boolean isOp;
     public int oncelik;
-    
-    public Token(int satir,int sutun,TOKEN type,String value,boolean isOp,int oncelik){
+
+    public Token(int satir, int sutun, TOKEN type, String value, boolean isOp, int oncelik) {
         this.satir = satir;
         this.sutun = sutun;
         this.type = type;
@@ -57,5 +66,5 @@ class Token{
 }
 
 public class utils {
-    
+
 }
