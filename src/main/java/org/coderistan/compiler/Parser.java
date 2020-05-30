@@ -93,6 +93,8 @@ public class Parser {
             result = new Node(ND_TYPE.print, sag_taraf, null, null);
             expect(")");
             expect(";");
+        } else {
+            throw new RuntimeException("Beklenmeyen token: "+token.type);
         }
 
         return result;
