@@ -10,7 +10,7 @@ public class Lexer {
     private final Queue<Token> lexer = new LinkedList<>();
     private String metin;
     private boolean finish = false;
-    private int bas = 0, pos = 0, satir_no = 1, sutun_no = 1;
+    private int bas = 0, pos = 0, satir_no = 1, sutun_no = 0;
     private final List<String> keywords = Arrays.asList("print");
     private final String alfabe = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private final String rakamlar = "0123456789";
@@ -24,7 +24,7 @@ public class Lexer {
 
     private void lexOperator() {
         TOKEN op_type = null;
-        int oncelik=-1;
+        int oncelik = -1;
 
         try {
             karakter = this.getKarakter();
@@ -33,7 +33,7 @@ public class Lexer {
             return;
         }
 
-        this.pos += 1;
+        this.nextPos();
 
         if (operator.contains(karakter)) {
             switch (karakter) {
@@ -76,7 +76,7 @@ public class Lexer {
             }
 
             if (rakamlar.contains(karakter)) {
-                this.pos += 1;
+                this.nextPos();
             } else {
                 this.token(TOKEN.integer, false, -1);
                 return;
@@ -84,6 +84,11 @@ public class Lexer {
         }
     }
 
+    private void nextPos(){
+        this.sutun_no++;
+        this.pos++;
+    }
+    
     private void lexSymbol() {
         try {
             karakter = this.getKarakter();
@@ -92,7 +97,7 @@ public class Lexer {
             return;
         }
 
-        pos += 1;
+        nextPos();
         switch (karakter) {
             case "(":
                 this.token(TOKEN.sm_solparantez, false, -1);
@@ -127,7 +132,7 @@ public class Lexer {
             }
 
             if (alfabe.contains(karakter)) {
-                this.pos += 1;
+                this.nextPos();
             } else {
 
                 if (keywords.contains(getKelime())) {
@@ -150,10 +155,8 @@ public class Lexer {
             String s = "" + this.metin.charAt(pos);
             if (s.equalsIgnoreCase("\n")) {
                 satir_no++;
-                sutun_no = 0;
             }
 
-            sutun_no++;
             return s;
         } catch (Exception e) {
             finish = true;
@@ -194,8 +197,9 @@ public class Lexer {
                 // noktalı virgül için token oluşturma
                 this.lexSymbol();
             } else if (" \t\n".contains(karakter)) {
-                this.pos += 1;
+                this.nextPos();
                 this.bas = this.pos;
+                this.sutun_no = 0;
                 continue;
             } else {
                 finish = true;
